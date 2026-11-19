@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Application structure
+- Keep sample clip processing in `src/lib/clipshort-api.ts` behind focused page components; this preserves a simple seam for the requested local Python API without backend coupling.

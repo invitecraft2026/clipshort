@@ -63,3 +63,18 @@ export function isValidYouTubeUrl(value: string): boolean {
     return false;
   }
 }
+
+export function buildMockClips(count: number, clipLength: string, captionStyle: string): Clip[] {
+  const duration = clipLength === "15–30s" ? 22 : clipLength === "60–90s" ? 75 : 45;
+  return sampleClips.slice(0, count).map((clip) => {
+    const startSeconds = secondsFromTimecode(clip.start) ?? 0;
+    const endSeconds = startSeconds + duration;
+    const end = `${String(Math.floor(endSeconds / 60)).padStart(2, "0")}:${String(endSeconds % 60).padStart(2, "0")}`;
+    return {
+      ...clip,
+      end,
+      duration: `${duration}s`,
+      caption: captionStyle === "None" ? "" : captionStyle === "Minimal" ? clip.excerpt : clip.caption,
+    };
+  });
+}
